@@ -11,7 +11,7 @@ public class HelplessFBController : MonoBehaviour
 	{
 
 		fbRootRef = Firebase.CreateNew ("https://" + AppConstants.kFirebaseAppID);
-		primaryRef = fbRootRef.Child ("initChild");
+		primaryRef = fbRootRef.Child ("hi there");
 		primaryRef.ChildAdded += primaryRefChildAdded;
 	}
 	

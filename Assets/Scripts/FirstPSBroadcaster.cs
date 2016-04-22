@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 
 public class FirstPSBroadcaster : MonoBehaviour
@@ -14,16 +15,28 @@ public class FirstPSBroadcaster : MonoBehaviour
 	{
 	
 		rootRef = fbController.primaryRef;
-//		firebaseRoom = new IFirebase ();
 
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
+		var loc = createLocationEntry ();
 
-		currentTransform = this.gameObject.transform;
+		rootRef.SetValue (createLocationEntry ());
+	}
 
-		//rootRef.
+
+	//note: test if string for transform position components works better on receiver end for parsing.
+	IDictionary<string, object> createLocationEntry ()
+	{
+		IDictionary <string, object> locationDictionary = new Dictionary<string, object> ();
+
+		locationDictionary.Add ("X", this.gameObject.transform.position.x);
+		locationDictionary.Add ("Y", this.gameObject.transform.position.y);
+		locationDictionary.Add ("Z", this.gameObject.transform.position.z);
+
+		return locationDictionary;
+
 	}
 }

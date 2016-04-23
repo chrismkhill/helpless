@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class GUIManagement : MonoBehaviour 
 {
-    int collectiblesCount = 5;
+    public int collectiblesCount = 5;
     public int collectiblesFound = 0;
 
     public Text scoreText;

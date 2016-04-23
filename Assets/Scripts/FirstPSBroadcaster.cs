@@ -32,9 +32,9 @@ public class FirstPSBroadcaster : MonoBehaviour
 	{
 		IDictionary <string, object> locationDictionary = new Dictionary<string, object> ();
 
-		locationDictionary.Add ("X", this.gameObject.transform.position.x);
-		locationDictionary.Add ("Y", this.gameObject.transform.position.y);
-		locationDictionary.Add ("Z", this.gameObject.transform.position.z);
+		locationDictionary.Add ("X", this.gameObject.transform.position.x.ToString ());
+		locationDictionary.Add ("Y", this.gameObject.transform.position.y.ToString ());
+		locationDictionary.Add ("Z", this.gameObject.transform.position.z.ToString ());
 
 		return locationDictionary;
 

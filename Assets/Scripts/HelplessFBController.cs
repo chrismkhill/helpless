@@ -9,10 +9,10 @@ public class HelplessFBController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-
 		fbRootRef = Firebase.CreateNew ("https://" + AppConstants.kFirebaseAppID);
-		primaryRef = fbRootRef.Child ("hi there");
-		primaryRef.ChildAdded += primaryRefChildAdded;
+		primaryRef = fbRootRef.Child ("FirstRoom");
+		//primaryRef.ChildAdded += primaryRefChildAdded;
+		//primaryRef.ValueUpdated += primaryRefValueUpdated;
 	}
 	
 	// Update is called once per frame
@@ -26,7 +26,7 @@ public class HelplessFBController : MonoBehaviour
 		
 	}
 
-	void OnDisable ()
+	public void OnDisable ()
 	{
 		primaryRef.ChildAdded -= primaryRefChildAdded;
 	}
@@ -35,6 +35,13 @@ public class HelplessFBController : MonoBehaviour
 	{
 		Debug.Log ("childAdded: " + e.DataSnapshot.Key);
 
+
+	}
+
+	public void primaryRefValueUpdated (object sender, FirebaseChangedEventArgs e)
+	{
+
+		Debug.Log ("updated transform " + e.DataSnapshot.Key);
 	}
 
 

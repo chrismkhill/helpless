@@ -8,7 +8,6 @@ public class ThreePSListener : MonoBehaviour
 	public GameObject playerToMove;
 	private IFirebase rootRef;
 	private float updatedX;
-	private float updatedY;
 	private float updatedZ;
 
 	// Use this for initialization
@@ -30,34 +29,12 @@ public class ThreePSListener : MonoBehaviour
 
 		Debug.Log ("received location update");
 		Debug.Log ("firebase values were added: " + e.DataSnapshot.DictionaryValue.ToStringFull ());
-		float tryingx = float.Parse (e.DataSnapshot.DictionaryValue ["X"].ToString ());
-		Debug.Log ("received x value : " + tryingx);
-		updatedX = tryingx;
+		updatedX = float.Parse (e.DataSnapshot.DictionaryValue ["X"].ToString ());
 		updatedZ = float.Parse (e.DataSnapshot.DictionaryValue ["Z"].ToString ());
-			
-		//Debug.Log ("new X value is " + (float.TryParse (e.DataSnapshot.DictionaryValue ["X"].ToString ()).ToString ()));
 
-		if (e.DataSnapshot.DictionaryValue ["X"] != null) {
-			updatedX = (float)e.DataSnapshot.DictionaryValue ["X"];
-			updatedZ = (float)e.DataSnapshot.DictionaryValue ["Z"];
-			Debug.Log ("got x value: " + updatedX);
-			Debug.Log ("got z value: " + updatedZ);
-		}
-
-
+		Debug.Log ("received x value : " + updatedX);
+		Debug.Log ("received z value : " + updatedX);
 
 	}
-
-	void OnGUI ()
-	{
-
-//		GUI.Box(new Rect(Screen.width - 110 , 10 ,100 ,90), "Received Loc?");
-//		if(GUI.Button(new Rect(Screen.width - 100 , 40 ,80, 20), updatedX))
-//			//anim.SetBool ("Next", true);
-//		if(GUI.Button(new Rect(Screen.width - 100 , 70 ,80, 20), updatedZ))
-//			//anim.SetBool ("Back", true);
-
-	}
-
-
+		
 }

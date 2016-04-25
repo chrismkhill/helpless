@@ -26,19 +26,19 @@ public class HelplessFBController : MonoBehaviour
 		
 	}
 
-	public void OnDisable ()
+	void OnDisable ()
 	{
 		primaryRef.ChildAdded -= primaryRefChildAdded;
 	}
 
-	public void primaryRefChildAdded (object sender, FirebaseChangedEventArgs e)
+	void primaryRefChildAdded (object sender, FirebaseChangedEventArgs e)
 	{
 		Debug.Log ("childAdded: " + e.DataSnapshot.Key);
 
 
 	}
 
-	public void primaryRefValueUpdated (object sender, FirebaseChangedEventArgs e)
+	void primaryRefValueUpdated (object sender, FirebaseChangedEventArgs e)
 	{
 
 		Debug.Log ("updated transform " + e.DataSnapshot.Key);

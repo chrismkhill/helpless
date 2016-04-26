@@ -34,8 +34,6 @@ public class HelplessFBController : MonoBehaviour
 	void primaryRefChildAdded (object sender, FirebaseChangedEventArgs e)
 	{
 		Debug.Log ("childAdded: " + e.DataSnapshot.Key);
-
-
 	}
 
 	void primaryRefValueUpdated (object sender, FirebaseChangedEventArgs e)

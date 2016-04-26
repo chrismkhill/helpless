@@ -1,27 +1,29 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CollectibleItem : MonoBehaviour {
+public class CollectibleItem : MonoBehaviour
+{
 
-    public GUIManagement guiManagement;
+	public GUIManagement guiManagement;
 
-    public void Start()
-    {
-        guiManagement = GameObject.Find("GUIManagement").GetComponent<GUIManagement>();
-    }
+	public void Start ()
+	{
+		guiManagement = GameObject.Find ("GUIManagement").GetComponent<GUIManagement> ();
+	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 	
 	}
 
-    void OnTriggerEnter(Collider other) 
-    {
-        if (other.tag == "FPSPlayer")
-        {
-            Destroy(gameObject);
-            guiManagement.collectiblesFound ++;
-        }
-        guiManagement.CheckForWin();
-    }
+	void OnTriggerEnter (Collider other)
+	{
+		if (other.tag == "FPSPlayer") {
+			Destroy (gameObject);
+			guiManagement.collectiblesFound++;
+			Debug.Log ("collectibles found count is " + guiManagement.collectiblesFound);
+		}
+		guiManagement.CheckForWin ();
+	}
 }

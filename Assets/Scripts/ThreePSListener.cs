@@ -33,8 +33,13 @@ public class ThreePSListener : MonoBehaviour
 		updatedZ = float.Parse (e.DataSnapshot.DictionaryValue ["Z"].ToString ());
 
 		Debug.Log ("received x value : " + updatedX);
-		Debug.Log ("received z value : " + updatedX);
+		Debug.Log ("received z value : " + updatedZ);
 
+	}
+
+	void OnDisable ()
+	{
+		rootRef.ValueUpdated -= updatedLocation;
 	}
 		
 }

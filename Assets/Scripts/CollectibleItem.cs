@@ -14,7 +14,9 @@ public class CollectibleItem : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-	
+        //Spin the collectible
+        this.transform.Rotate(Vector3.down, Space.World);
+
 	}
 
 	void OnTriggerEnter (Collider other)

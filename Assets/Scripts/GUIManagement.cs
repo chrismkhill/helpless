@@ -9,8 +9,8 @@ public class GUIManagement : MonoBehaviour
 
 	public float timerInSeconds = 300f;
 
-	public Text scoreText;
-	public Text timerText;
+	public TextMesh scoreText;
+	public TextMesh timerText;
 
 	// Use this for initialization
 	void Start ()

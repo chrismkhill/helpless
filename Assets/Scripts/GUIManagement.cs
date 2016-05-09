@@ -25,18 +25,17 @@ public class GUIManagement : MonoBehaviour
 		timerInSeconds -= Time.deltaTime;
 		int timerMinutes = (int)timerInSeconds / 60;
 		int timerSeconds = (int)timerInSeconds % 60;
-        string zeroString = "";
-        if (timerInSeconds < 10)
-        {
-            zeroString = "0";
-        }
-        timerText.text = timerMinutes.ToString () + ":" + zeroString + timerSeconds.ToString ();
+		string zeroString = "";
+		if (timerSeconds < 10) {
+			zeroString = "0";
+		}
+			
+		timerText.text = timerMinutes.ToString () + ":" + zeroString + timerSeconds.ToString ();
 		scoreText.text = collectiblesFound.ToString () + "/" + collectiblesCount.ToString ();
 
-        if (timerInSeconds <= 0)
-        {
-            GameOver();
-        }
+		if (timerInSeconds <= 0) {
+			GameOver ();
+		}
         
 	}
 
@@ -49,8 +48,8 @@ public class GUIManagement : MonoBehaviour
 //        }
 	}
 
-    public void GameOver()
-    {
-        Application.LoadLevel("GameOver");
-    }
+	public void GameOver ()
+	{
+		Application.LoadLevel ("GameOver");
+	}
 }

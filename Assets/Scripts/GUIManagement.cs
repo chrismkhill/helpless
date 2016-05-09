@@ -7,7 +7,7 @@ public class GUIManagement : MonoBehaviour
 	public int collectiblesCount = 5;
 	public int collectiblesFound = 0;
 
-	public float timerInSeconds = 300f;
+	public float timerInSeconds = 180f;
 
 	public TextMesh scoreText;
 	public TextMesh timerText;
@@ -25,8 +25,18 @@ public class GUIManagement : MonoBehaviour
 		timerInSeconds -= Time.deltaTime;
 		int timerMinutes = (int)timerInSeconds / 60;
 		int timerSeconds = (int)timerInSeconds % 60;
-		timerText.text = timerMinutes.ToString () + ":" + timerSeconds.ToString ();
+        string zeroString = "";
+        if (timerInSeconds < 10)
+        {
+            zeroString = "0";
+        }
+        timerText.text = timerMinutes.ToString () + ":" + zeroString + timerSeconds.ToString ();
 		scoreText.text = collectiblesFound.ToString () + "/" + collectiblesCount.ToString ();
+
+        if (timerInSeconds <= 0)
+        {
+            GameOver();
+        }
         
 	}
 
@@ -38,4 +48,9 @@ public class GUIManagement : MonoBehaviour
 //            Application.LoadLevel(0);
 //        }
 	}
+
+    public void GameOver()
+    {
+        Application.LoadLevel("GameOver");
+    }
 }

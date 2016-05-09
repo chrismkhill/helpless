@@ -33,9 +33,9 @@ namespace UnityStandardAssets.Chararacters.ThirdPerson
 		// Use this for initialization
 		void Start ()
 		{
-			character = this.gameObject.GetComponent<ThirdPersonCharacter> ();
-			startingPoint = this.gameObject.GetComponent<Transform> ();
-			navMeshAgent = this.gameObject.GetComponent<NavMeshAgent> ();
+			character = GetComponent<ThirdPersonCharacter> ();
+			startingPoint = GetComponent<Transform> ();
+			navMeshAgent = GetComponentInChildren<NavMeshAgent> ();
 			navMeshAgent.updatePosition = true;
 			navMeshAgent.updateRotation = false;
 

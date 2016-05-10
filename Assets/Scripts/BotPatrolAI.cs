@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿//complete nav mesh ai script
+
+using UnityEngine;
 using UnityStandardAssets.Characters.ThirdPerson;
 using System;
 using System.Collections;
@@ -7,14 +9,14 @@ namespace UnityStandardAssets.Chararacters.ThirdPerson
 {
 	public class BotPatrolAI : MonoBehaviour
 	{
-		public Transform botGuardingTransform;
+
 		public Transform[] patrolPoints;
-		public GameObject[] originPoints;
 		public GameObject chaseTarget;
-		public float patrolSpeed = 5.0f;
-		public int curWayPoint = 0;
-		public float pursueSpeed = 9.0f;
-		private Transform startingPoint;
+		public float patrolSpeed = 0.5f;
+		public float pursueSpeed = 1.5f;
+		public int pointIndex = 0;
+		private int maxIndex;
+		public float minWaypointDistance = 0.1f;
 		private NavMeshAgent navMeshAgent;
 		public ThirdPersonCharacter character;
 
@@ -28,18 +30,17 @@ namespace UnityStandardAssets.Chararacters.ThirdPerson
 
 		bool botAlive = true;
 
-
-
 		// Use this for initialization
 		void Start ()
 		{
 			character = GetComponent<ThirdPersonCharacter> ();
-			startingPoint = GetComponent<Transform> ();
 			navMeshAgent = GetComponentInChildren<NavMeshAgent> ();
 			navMeshAgent.updatePosition = true;
 			navMeshAgent.updateRotation = false;
+			maxIndex = patrolPoints.Length - 1;
 
 			currentState = BotPatrolAI.State.PATROLLING;
+
 
 			StartCoroutine ("StartStateSequence");
 
@@ -64,20 +65,32 @@ namespace UnityStandardAssets.Chararacters.ThirdPerson
 
 		void Patrol ()
 		{
-			navMeshAgent.speed = patrolSpeed;
-			if (Vector3.Distance (this.gameObject.transform.position, originPoints [curWayPoint].transform.position) >= 2) {
-				navMeshAgent.SetDestination (originPoints [curWayPoint].transform.position);
-				character.Move (navMeshAgent.desiredVelocity, false, false);
-			} else if (Vector3.Distance (this.gameObject.transform.position, originPoints [curWayPoint].transform.position) <= 2) {
-				curWayPoint += 1;
 
-				if (curWayPoint > originPoints.Length) {
-					curWayPoint = 0;
-				}
-			} else {
-				character.Move (Vector3.zero, false, false);
+			navMeshAgent.speed = patrolSpeed;
+
+			Vector3 tempLocalPosition;
+			Vector3 tempWaypointPosition;
+
+			tempLocalPosition = transform.position;
+			tempLocalPosition.y = 0f;
+
+			// Current waypoints position (x, set y to 0, z)
+			tempWaypointPosition = patrolPoints [pointIndex].position;
+			tempWaypointPosition.y = 0f;
+
+			if (Vector3.Distance (tempLocalPosition, tempWaypointPosition) <= minWaypointDistance) {
+
+				if (pointIndex == maxIndex)
+					pointIndex = 0;
+				else
+					pointIndex++;
 			}
-				
+
+			// Set the destination for the agent
+			// The navmesh agent is going to do the rest of the work
+			navMeshAgent.SetDestination (patrolPoints [pointIndex].position);
+			character.Move (navMeshAgent.desiredVelocity, false, false);
+
 		}
 
 		void ChasePlayer ()
@@ -94,10 +107,18 @@ namespace UnityStandardAssets.Chararacters.ThirdPerson
 				currentState = BotPatrolAI.State.PURSUING;
 				chaseTarget = collider.gameObject;
 			}
-				
+
+		}
+
+		void OnCollisionEnter (Collision collision)
+		{
+			if (collision.gameObject.tag == "FPSPlayer" && currentState == BotPatrolAI.State.PURSUING) {
+				//Game Over
+			}
 		}
 
 	}
 }
+
 
 

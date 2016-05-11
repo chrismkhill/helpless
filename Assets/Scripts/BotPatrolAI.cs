@@ -33,7 +33,7 @@ namespace UnityStandardAssets.Chararacters.ThirdPerson
 		// Use this for initialization
 		void Start ()
 		{
-			//character = GetComponent<ThirdPersonCharacter> ();
+			character = GetComponent<ThirdPersonCharacter> ();
 			navMeshAgent = GetComponentInChildren<NavMeshAgent> ();
 			navMeshAgent.updatePosition = true;
 			navMeshAgent.updateRotation = false;

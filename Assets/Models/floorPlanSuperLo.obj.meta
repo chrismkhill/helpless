@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 7703c38dc0928455890f338a45c27dd1
-timeCreated: 1462942248
+guid: 14e87081da8d34b919630318652813b5
+timeCreated: 1462984759
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -27,6 +27,10 @@ ModelImporter:
     4300002: greenRoom
     4300004: redRoom
     4300006: yellowRoom
+    6400000: blueRoom
+    6400002: greenRoom
+    6400004: redRoom
+    6400006: yellowRoom
   materials:
     importMaterials: 1
     materialName: 0
@@ -53,7 +57,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0

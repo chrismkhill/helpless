@@ -1,36 +1,32 @@
 fileFormatVersion: 2
-guid: 9a2d8593178bf45dd9719e1d8c346bdb
-timeCreated: 1462941976
+guid: 4861a004579cb48e2a3805a8c51af87b
+timeCreated: 1462985068
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: blueRoom
-    100002: //RootNode
-    100004: greenRoom
-    100006: redRoom
-    100008: yellowRoom
-    400000: blueRoom
-    400002: //RootNode
-    400004: greenRoom
-    400006: redRoom
-    400008: yellowRoom
-    2300000: blueRoom
-    2300002: greenRoom
-    2300004: redRoom
-    2300006: yellowRoom
-    3300000: blueRoom
-    3300002: greenRoom
-    3300004: redRoom
-    3300006: yellowRoom
-    4300000: blueRoom
-    4300002: greenRoom
-    4300004: redRoom
-    4300006: yellowRoom
-    6400000: blueRoom
-    6400002: greenRoom
-    6400004: redRoom
-    6400006: yellowRoom
+    100000: blueTrim
+    100002: greenTrim
+    100004: redTrim
+    100006: //RootNode
+    100008: yellowTrim
+    400000: blueTrim
+    400002: greenTrim
+    400004: redTrim
+    400006: //RootNode
+    400008: yellowTrim
+    2300000: blueTrim
+    2300002: greenTrim
+    2300004: redTrim
+    2300006: yellowTrim
+    3300000: blueTrim
+    3300002: greenTrim
+    3300004: redTrim
+    3300006: yellowTrim
+    4300000: blueTrim
+    4300002: greenTrim
+    4300004: redTrim
+    4300006: yellowTrim
   materials:
     importMaterials: 1
     materialName: 0
@@ -57,7 +53,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0

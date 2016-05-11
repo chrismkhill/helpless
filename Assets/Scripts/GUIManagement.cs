@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using TMPro;
 
 public class GUIManagement : MonoBehaviour
 {
@@ -9,8 +10,8 @@ public class GUIManagement : MonoBehaviour
 
 	public float timerInSeconds = 180f;
 
-	public TextMesh scoreText;
-	public TextMesh timerText;
+	public TextMeshProUGUI scoreText;
+	public TextMeshProUGUI timerText;
 
 	// Use this for initialization
 	void Start ()

@@ -18,7 +18,7 @@ namespace TMPro.Examples
 		//[Range(0, 100)]
 		//public int RevealSpeed = 50;
 
-		//	private string label01 = "Elliot…Elliot…\n\nIt’s me. It looks like I can hear you. Both of you.\n\nOur “friend” is on the other end. ";
+		//	private string label01 = "…\n\nIt’s me. It looks like I can hear you. Both of you.\n\nOur “friend” is on the other end. ";
 		//"Example <sprite=2> of using <sprite=7> <#ffa000>Graphics Inline</color> <sprite=5> with Text in <smallcaps>TextMesh</smallcaps><sup><#40a0ff>Pro</color></sup><sprite=0> and Unity 4.6 & 5.x <sprite=2>";
 		//private string label02 = "Example <sprite=2> of using <sprite=7> <#ffa000>Graphics Inline</color> <sprite=5> with Text in <smallcaps>TextMesh</smallcaps><sup><#40a0ff>Pro</color></sup><sprite=0> and Unity 4.6 & 5.x <sprite=1>";
 		//	private string label02 = "He can see you, so he can help you here a lot more than I can. Say hi, “friend”!\n\nI have to run. I’m being tailed. I’ve got about 20 seconds before I need to run for my life";
@@ -70,6 +70,8 @@ namespace TMPro.Examples
 				if (visibleCount >= totalVisibleCharacters) {
 					yield return new WaitForSeconds (1.0f);
 					//m_textMeshPro.text = "The first thing you need to do is go grab some power. Need to pick up this juice, it’s a little silver accessory, or you’re going to lose your connection to our friend. I’d guess with how heavy motion-tracking and the camera feed is that you’ve got a minute plus or minus to grab the battery to stay online.";
+
+					m_textMeshPro.text = "Our friend has a surveillance feed. He can guide you to the gear. He'll tell you what to do. Listen to him! Get the device first. Get it now or it's game over.";
 					//m_textMeshPro.text = label02;
 					yield return new WaitForSeconds (1.0f);
 					//m_textMeshPro.text = label01;

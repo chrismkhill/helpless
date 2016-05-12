@@ -22,7 +22,6 @@ public class FirstPSBroadcaster : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		var loc = createLocationEntry ();
 
 		rootRef.SetValue (createLocationEntry ());
 	}

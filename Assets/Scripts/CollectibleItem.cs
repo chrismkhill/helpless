@@ -5,6 +5,8 @@ public class CollectibleItem : MonoBehaviour
 {
 
 	public GUIManagement guiManagement;
+	public AudioSource pop;
+	public int destroyTime = 1;
 
 	public void Start ()
 	{
@@ -22,9 +24,10 @@ public class CollectibleItem : MonoBehaviour
 	void OnTriggerEnter (Collider other)
 	{
 		if (other.tag == "FPSPlayer") {
-			Destroy (gameObject);
+			gameObject.GetComponent<AudioSource>().Play ();
 			guiManagement.collectiblesFound++;
 			Debug.Log ("collectibles found count is " + guiManagement.collectiblesFound);
+			Destroy (gameObject, destroyTime);
 		}
 		guiManagement.CheckForWin ();
 	}

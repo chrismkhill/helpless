@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class FirstPSBroadcaster : MonoBehaviour
 {
 
+	public GameObject[] enemiesToTrack;
 	private Transform currentTransform;
 	public HelplessFBController fbController;
 	private IFirebase rootRef;

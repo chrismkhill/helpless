@@ -37,20 +37,20 @@ public class ThreePSListener : MonoBehaviour
 	{
 		LeanTween.move (playerToMove, new Vector3 (updatedX, playerToMove.transform.position.y, updatedZ), Time.smoothDeltaTime);
 
-		if (enemiesToMove [0] != null) {
-			LeanTween.move (enemiesToMove [0], new Vector3 (bot0UpdatedX, enemiesToMove [0].transform.position.y, bot0UpdatedZ), Time.smoothDeltaTime);
-			LeanTween.rotateY (enemiesToMove [0], bot0UpdatedEulerY, Time.smoothDeltaTime);
-		}
+		//if (enemiesToMove [0] != null) {
+		LeanTween.move (enemiesToMove [0], new Vector3 (bot0UpdatedX, enemiesToMove [0].transform.position.y, bot0UpdatedZ), Time.smoothDeltaTime);
+		LeanTween.rotateY (enemiesToMove [0], bot0UpdatedEulerY, Time.smoothDeltaTime);
+		//}
 
-		if (enemiesToMove [1] != null) {
-			LeanTween.move (enemiesToMove [1], new Vector3 (bot1UpdatedX, enemiesToMove [1].transform.position.y, bot1UpdatedZ), Time.smoothDeltaTime);
-			LeanTween.rotateY (enemiesToMove [1], bot1UpdatedEulerY, Time.smoothDeltaTime);
-		}
+		//if (enemiesToMove [1] != null) {
+		LeanTween.move (enemiesToMove [1], new Vector3 (bot1UpdatedX, enemiesToMove [1].transform.position.y, bot1UpdatedZ), Time.smoothDeltaTime);
+		LeanTween.rotateY (enemiesToMove [1], bot1UpdatedEulerY, Time.smoothDeltaTime);
+		//}
 
-		if (enemiesToMove [2] != null) {
-			LeanTween.move (enemiesToMove [2], new Vector3 (bot2UpdatedX, enemiesToMove [2].transform.position.y, bot2UpdatedZ), Time.smoothDeltaTime);
-			LeanTween.rotateY (enemiesToMove [2], bot2UpdatedEulerY, Time.smoothDeltaTime);
-		}
+		//	if (enemiesToMove [2] != null) {
+		LeanTween.move (enemiesToMove [2], new Vector3 (bot2UpdatedX, enemiesToMove [2].transform.position.y, bot2UpdatedZ), Time.smoothDeltaTime);
+		LeanTween.rotateY (enemiesToMove [2], bot2UpdatedEulerY, Time.smoothDeltaTime);
+		//}
 		//LeanTween.move(enemiesToMove[0], new Vector3 (
 
 	}

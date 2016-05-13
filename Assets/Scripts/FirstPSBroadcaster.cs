@@ -17,7 +17,7 @@ public class FirstPSBroadcaster : MonoBehaviour
 		primaryRef = fbController.primaryRef;
 		//bot0Ref = primaryRef.Child ("Bot0Info");
 
-
+        
 	}
 	
 	// Update is called once per frame
@@ -42,23 +42,26 @@ public class FirstPSBroadcaster : MonoBehaviour
 		locationDictionary.Add ("bot0X", enemiesToTrack [0].transform.position.x.ToString ());
 		locationDictionary.Add ("bot0Y", enemiesToTrack [0].transform.position.y.ToString ());
 		locationDictionary.Add ("bot0Z", enemiesToTrack [0].transform.position.z.ToString ());
-		locationDictionary.Add ("bot0EulerX", enemiesToTrack [0].transform.rotation.x.ToString ());	
-		locationDictionary.Add ("bot0EulerY", enemiesToTrack [0].transform.rotation.y.ToString ());	
-		locationDictionary.Add ("bot0EulerZ", enemiesToTrack [0].transform.rotation.z.ToString ());
+        locationDictionary.Add ("bot0QuaternionX", enemiesToTrack [0].transform.rotation.x.ToString ()); 
+        locationDictionary.Add ("bot0QuaternionY", enemiesToTrack [0].transform.rotation.y.ToString ()); 
+        locationDictionary.Add ("bot0QuaternionZ", enemiesToTrack [0].transform.rotation.z.ToString ());
+        locationDictionary.Add ("bot0QuaternionW", enemiesToTrack [0].transform.rotation.w.ToString ());
 
 		locationDictionary.Add ("bot1X", enemiesToTrack [1].transform.position.x.ToString ());
 		locationDictionary.Add ("bot1Y", enemiesToTrack [1].transform.position.y.ToString ());
 		locationDictionary.Add ("bot1Z", enemiesToTrack [1].transform.position.z.ToString ());
-		locationDictionary.Add ("bot1EulerX", enemiesToTrack [1].transform.rotation.x.ToString ());	
-		locationDictionary.Add ("bot1EulerY", enemiesToTrack [1].transform.rotation.y.ToString ());	
-		locationDictionary.Add ("bot1EulerZ", enemiesToTrack [1].transform.rotation.z.ToString ());
+        locationDictionary.Add ("bot1QuaternionX", enemiesToTrack [1].transform.rotation.x.ToString ()); 
+        locationDictionary.Add ("bot1QuaternionY", enemiesToTrack [1].transform.rotation.y.ToString ()); 
+        locationDictionary.Add ("bot1QuaternionZ", enemiesToTrack [1].transform.rotation.z.ToString ());
+        locationDictionary.Add ("bot1QuaternionW", enemiesToTrack [1].transform.rotation.w.ToString ());
 
 		locationDictionary.Add ("bot2X", enemiesToTrack [2].transform.position.x.ToString ());
 		locationDictionary.Add ("bot2Y", enemiesToTrack [2].transform.position.y.ToString ());
 		locationDictionary.Add ("bot2Z", enemiesToTrack [2].transform.position.z.ToString ());
-		locationDictionary.Add ("bot2EulerX", enemiesToTrack [2].transform.rotation.x.ToString ());	
-		locationDictionary.Add ("bot2EulerY", enemiesToTrack [2].transform.rotation.y.ToString ());	
-		locationDictionary.Add ("bot2EulerZ", enemiesToTrack [2].transform.rotation.z.ToString ());
+        locationDictionary.Add ("bot2QuaternionX", enemiesToTrack [2].transform.rotation.x.ToString ()); 
+        locationDictionary.Add ("bot2QuaternionY", enemiesToTrack [2].transform.rotation.y.ToString ()); 
+        locationDictionary.Add ("bot2QuaternionZ", enemiesToTrack [2].transform.rotation.z.ToString ());
+        locationDictionary.Add ("bot2QuaternionW", enemiesToTrack [2].transform.rotation.w.ToString ());
 
 		return locationDictionary;
 

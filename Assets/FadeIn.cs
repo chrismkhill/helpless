@@ -15,6 +15,7 @@ public class FadeIn : MonoBehaviour
     {
         fadeSpeed = 1f / fadeInSeconds;
         fadePlane = this.gameObject;
+        fadeInMaterial.color = Color.black;
 
         
 	}

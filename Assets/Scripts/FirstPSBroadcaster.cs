@@ -23,8 +23,6 @@ public class FirstPSBroadcaster : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		var playerLoc = createLocationEntry ();
-	
 		primaryRef.SetValue (createLocationEntry ());
 
 		//bot1Ref.SetValue (getBotTransformInfo (1));

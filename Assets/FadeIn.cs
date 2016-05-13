@@ -5,15 +5,17 @@ public class FadeIn : MonoBehaviour
 {
 
     public Material fadeInMaterial;
+    public GameObject fadePlane;
 
     public float fadeInSeconds = 1;
 
     float fadeSpeed;
 	// Use this for initialization
-	void Start () 
+	void Awake () 
     {
-	    //fadeInMaterial = this.GetComponent<Material>();
         fadeSpeed = 1f / fadeInSeconds;
+        fadePlane = this.gameObject;
+
         
 	}
 	
@@ -28,6 +30,11 @@ public class FadeIn : MonoBehaviour
     {
         // Lerp the colour of the texture between itself and transparent.
         fadeInMaterial.color = Color.Lerp(fadeInMaterial.color, Color.clear, fadeSpeed * Time.deltaTime);
+
+        if (fadeInMaterial.color.a < .1f)
+        {
+            fadePlane.SetActive(false);
+        }
     }
     
     

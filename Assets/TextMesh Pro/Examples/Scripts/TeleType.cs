@@ -63,6 +63,16 @@ namespace TMPro.Examples
 			StartCoroutine (StartDialogue ());
 		}
 
+		void Update ()
+		{
+
+			if (_isEndOfDialogue) {
+
+				m_textMeshPro.text = "";
+				StopAllCoroutines ();
+			}
+		}
+
 
 		IEnumerator StartOldLineMethod (int increment)
 		{
@@ -174,6 +184,8 @@ namespace TMPro.Examples
 		}
 
 	}
+
+
 
 }
 #endif

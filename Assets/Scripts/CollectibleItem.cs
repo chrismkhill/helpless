@@ -6,7 +6,7 @@ public class CollectibleItem : MonoBehaviour
 
 	public GUIManagement guiManagement;
 	public AudioSource pop;
-	public int destroyTime = 1;
+	public int destroyTime = 0.3f;
 
 	public void Start ()
 	{
@@ -16,15 +16,15 @@ public class CollectibleItem : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-        //Spin the collectible
-        this.transform.Rotate(Vector3.down, Space.World);
+		//Spin the collectible
+		this.transform.Rotate (Vector3.down, Space.World);
 
 	}
 
 	void OnTriggerEnter (Collider other)
 	{
 		if (other.tag == "FPSPlayer") {
-			gameObject.GetComponent<AudioSource>().Play ();
+			gameObject.GetComponent<AudioSource> ().Play ();
 			guiManagement.collectiblesFound++;
 			Debug.Log ("collectibles found count is " + guiManagement.collectiblesFound);
 			Destroy (gameObject, destroyTime);

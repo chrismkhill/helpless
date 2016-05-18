@@ -7,6 +7,7 @@ public class MaterialToggler : MonoBehaviour
 	public Material materialToSwitchTo;
 	private Material originalMaterial;
 	public InsideCameraSwitch cSwitch;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -17,7 +18,9 @@ public class MaterialToggler : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-	
+		if (onOffSwitch) {
+			switchMaterial ();
+		}
 	}
 
 	void switchMaterial ()

@@ -7,6 +7,7 @@ public class MaterialToggler : MonoBehaviour
 	public Material materialToSwitchTo;
 	private Material originalMaterial;
 	public InsideCameraSwitch cSwitch;
+	public bool onOffSwitch = false;
 
 	// Use this for initialization
 	void Start ()

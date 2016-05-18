@@ -6,7 +6,7 @@ public class CollectibleItem : MonoBehaviour
 
 	public GUIManagement guiManagement;
 	public AudioSource pop;
-	public float destroyTime = 0.3f;
+	public float destroyTime = 0.1f;
 
 	public void Start ()
 	{

@@ -94,13 +94,13 @@ namespace TMPro.Examples
 
 				// Once the last character has been revealed, wait 1.0 second and start over.
 				if (visibleCount >= totalVisibleCharacters) {
-					yield return new WaitForSeconds (1.0f);
+					yield return new WaitForSeconds (0.3f);
 					//m_textMeshPro.text = DialogueStrings [stringIndex];
-					yield return new WaitForSeconds (1.0f);
+					yield return new WaitForSeconds (0.3f);
 					//m_textMeshPro.text = label01;
 
 
-					yield return new WaitForSeconds (1.0f);
+					yield return new WaitForSeconds (0.3f);
 					//currentDialogueIndex++;
 					//
 					_isStringBeingRevealed = false;

@@ -8,8 +8,9 @@ Streaming services are also supported.(Internet Access option is checked, the st
 
 From Android version 4.0 or later are supported.
 
-And the this demo movie licensing.
+And the this demo movie licensing. (c) copyright 2006, Blender Foundation / Netherlands Media Art Institute / www.elephantsdream.org
 http://orange.blender.org/blog/creative-commons-license-2/
+
 
 Editor On the Android Platform API can not be used ....
 

@@ -34,7 +34,7 @@ public class MediaPlayerCtrl : MonoBehaviour {
 	public VideoError OnVideoError;
 	public VideoFirstFrameReady OnVideoFirstFrameReady;
 
-	#if UNITY_IPHONE
+#if UNITY_IPHONE || UNITY_TVOS
 	
 	private int m_iPauseFrame;
 	#endif
@@ -117,7 +117,7 @@ public class MediaPlayerCtrl : MonoBehaviour {
 		}
 
 
-		#if UNITY_IPHONE
+		#if UNITY_IPHONE || UNITY_TVOS
 		
 		if(m_TargetMaterial!=null)
 		{
@@ -239,7 +239,7 @@ public class MediaPlayerCtrl : MonoBehaviour {
 			
 			string strName = m_strFileName.Trim();
 			
-			#if UNITY_IPHONE
+			#if UNITY_IPHONE || UNITY_TVOS
 			/*if (strName.StartsWith("http",StringComparison.OrdinalIgnoreCase))
 			{
 				StartCoroutine( DownloadStreamingVideoAndLoad(strName) );
@@ -345,224 +345,233 @@ public class MediaPlayerCtrl : MonoBehaviour {
 			
 			
 
-			
-		}
-		
-		
-		
-		if(m_CurrentState != Call_GetStatus() )
-		{
-			
-			m_CurrentState = Call_GetStatus();
-			
-			
-			
-			if(m_CurrentState == MEDIAPLAYER_STATE.READY)
-			{
-				
-				if(OnReady != null)
-					OnReady();
-				
-				if(m_bAutoPlay)
-					Call_Play (0);
 
-				SetVolume(m_fVolume);
-				
-				
-				
-			}
-			else if(m_CurrentState == MEDIAPLAYER_STATE.END)
-			{
-				if(OnEnd != null)
-					OnEnd();
-				
-				if(m_bLoop == true)
-				{
-					Call_Play(0);
-				}
-			}
-			else if(m_CurrentState == MEDIAPLAYER_STATE.ERROR)
-			{
-				OnError( (MEDIAPLAYER_ERROR)Call_GetError() ,(MEDIAPLAYER_ERROR)Call_GetErrorExtra() );
-			}
-			
-		}
-		
-		
-	}
-	
-	public void Resize()
-	{
-		if(m_CurrentState != MEDIAPLAYER_STATE.PLAYING)
-			return;
-		
-		if(m_objResize != null)
-		{
-			int iScreenWidth = Screen.width;
-			int iScreenHeight = Screen.height;
-			
-			float fRatioScreen = (float)iScreenHeight / (float)iScreenWidth;
-			int iWidth = Call_GetVideoWidth();
-			int iHeight = Call_GetVideoHeight();
-			
-			float fRatio = (float)iHeight / (float)iWidth;
-			float fRatioResult = fRatioScreen / fRatio;
-			
-			for( int i = 0; i < m_objResize.Length; i++)
-			{
-				if( m_objResize[i] == null)
-					continue;
+        }
 
-				if(m_bFullScreen)
-				{
-					if(fRatio < 1.0f)
-					{
-						if( fRatioScreen < 1.0f)
-						{
-							if( fRatio > fRatioScreen)
-							{
-								m_objResize[i].transform.localScale *= fRatioResult;
-							}
-						}
-						
+
+
+        if (m_CurrentState != Call_GetStatus())
+        {
+
+            m_CurrentState = Call_GetStatus();
+
+
+
+            if (m_CurrentState == MEDIAPLAYER_STATE.READY)
+            {
+
+                if (OnReady != null)
+                    OnReady();
+
+                if (m_bAutoPlay)
+                    Call_Play(0);
+
+                SetVolume(m_fVolume);
+
+
+
+            }
+            else if (m_CurrentState == MEDIAPLAYER_STATE.END)
+            {
+                if (OnEnd != null)
+                    OnEnd();
+
+                if (m_bLoop == true)
+                {
+                    Call_Play(0);
+                }
+            }
+            else if (m_CurrentState == MEDIAPLAYER_STATE.ERROR)
+            {
+                OnError((MEDIAPLAYER_ERROR)Call_GetError(), (MEDIAPLAYER_ERROR)Call_GetErrorExtra());
+            }
+
+        }
+
+
+    }
+
+    public void Resize()
+    {
+        if (m_CurrentState != MEDIAPLAYER_STATE.PLAYING)
+            return;
+
+        if (Call_GetVideoWidth() <= 0 || Call_GetVideoHeight() <= 0)
+        {
+            return;
+        }
+
+        if (m_objResize != null)
+        {
+            int iScreenWidth = Screen.width;
+            int iScreenHeight = Screen.height;
+
+            float fRatioScreen = (float)iScreenHeight / (float)iScreenWidth;
+            int iWidth = Call_GetVideoWidth();
+            int iHeight = Call_GetVideoHeight();
+
+            float fRatio = (float)iHeight / (float)iWidth;
+            float fRatioResult = fRatioScreen / fRatio;
+
+            for (int i = 0; i < m_objResize.Length; i++)
+            {
+                if (m_objResize[i] == null)
+                    continue;
+
+                if (m_bFullScreen)
+                {
+
+
+
+                    m_objResize[i].transform.localScale = new Vector3(20.0f / fRatioScreen, 20.0f / fRatioScreen, 1.0f);
+                    if (fRatio < 1.0f)
+                    {
+                        if (fRatioScreen < 1.0f)
+                        {
+                            if (fRatio > fRatioScreen)
+                            {
+                                m_objResize[i].transform.localScale *= fRatioResult;
+                            }
+                        }
+
+                        m_ScaleValue = MEDIA_SCALE.SCALE_X_TO_Y;
+                    }
+                    else
+                    {
+                        if (fRatioScreen > 1.0f)
+                        {
+                            if (fRatio >= fRatioScreen)
+                            {
+                                m_objResize[i].transform.localScale *= fRatioResult;
+                            }
+                        }
+
 						m_ScaleValue = MEDIA_SCALE.SCALE_X_TO_Y;
-					}
-					else
-					{
-						if( fRatioScreen > 1.0f)
-						{
-							if( fRatio > fRatioScreen)
-							{
-								m_objResize[i].transform.localScale *= fRatioResult;
-							}
-						}
-						
-						m_ScaleValue = MEDIA_SCALE.SCALE_Y_TO_X;
-					}
-				}
-				
-				
-				
-				if( m_ScaleValue == MEDIA_SCALE.SCALE_X_TO_Y)
-				{
-					m_objResize[i].transform.localScale 
-						= new Vector3(m_objResize[i].transform.localScale.x
-						              ,m_objResize[i].transform.localScale.x * fRatio
-						              ,m_objResize[i].transform.localScale.z);
-				}
-				else if( m_ScaleValue == MEDIA_SCALE.SCALE_X_TO_Y_2)
-				{
-					m_objResize[i].transform.localScale 
-						= new Vector3(m_objResize[i].transform.localScale.x
-							          ,m_objResize[i].transform.localScale.x * fRatio /2.0f
-						              ,m_objResize[i].transform.localScale.z);
-				}
-				else if( m_ScaleValue == MEDIA_SCALE.SCALE_X_TO_Z)
-				{
-					m_objResize[i].transform.localScale 
-						= new Vector3(m_objResize[i].transform.localScale.x
-						              ,m_objResize[i].transform.localScale.y
-						              ,m_objResize[i].transform.localScale.x * fRatio);
-				}
-				else if( m_ScaleValue == MEDIA_SCALE.SCALE_Y_TO_X)
-				{
-					m_objResize[i].transform.localScale 
-						= new Vector3(m_objResize[i].transform.localScale.y / fRatio
-						              ,m_objResize[i].transform.localScale.y
-						              ,m_objResize[i].transform.localScale.z);
-				}
-				else if( m_ScaleValue == MEDIA_SCALE.SCALE_Y_TO_Z)
-				{
-					m_objResize[i].transform.localScale 
-						= new Vector3(m_objResize[i].transform.localScale.x
-						              ,m_objResize[i].transform.localScale.y
-						              ,m_objResize[i].transform.localScale.y / fRatio);
-				}
-				else if( m_ScaleValue == MEDIA_SCALE.SCALE_Z_TO_X)
-				{
-					m_objResize[i].transform.localScale 
-						= new Vector3(m_objResize[i].transform.localScale.z * fRatio
-						              ,m_objResize[i].transform.localScale.y
-						              ,m_objResize[i].transform.localScale.z);
-				}
-				else if( m_ScaleValue == MEDIA_SCALE.SCALE_Z_TO_Y)
-				{
-					m_objResize[i].transform.localScale 
-						= new Vector3(m_objResize[i].transform.localScale.x
-						              ,m_objResize[i].transform.localScale.z * fRatio
-						              ,m_objResize[i].transform.localScale.z);
-				}
-				else 
-				{
-					m_objResize[i].transform.localScale 
-						= new Vector3(m_objResize[i].transform.localScale.x,m_objResize[i].transform.localScale.y,m_objResize[i].transform.localScale.z);
-				}
-			}
-			
-		}
-	}
-	
-	
-	
-	//The error code is the following sites related documents.
-	//http://developer.android.com/reference/android/media/MediaPlayer.OnErrorListener.html 
-	void OnError ( MEDIAPLAYER_ERROR iCode , MEDIAPLAYER_ERROR iCodeExtra)
-	{
-		string strError = "";
-		
-		switch (iCode)
-		{
-		case MEDIAPLAYER_ERROR.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK:
-			strError = "MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK";
-			break;
-		case MEDIAPLAYER_ERROR.MEDIA_ERROR_SERVER_DIED:
-			strError = "MEDIA_ERROR_SERVER_DIED";
-			break;
-		case MEDIAPLAYER_ERROR.MEDIA_ERROR_UNKNOWN:
-			strError = "MEDIA_ERROR_UNKNOWN";
-			break;
-		default:
-			strError = "Unknown error " + iCode;
-			break;
-		}
-		
-		strError += " ";
-		
-		switch (iCodeExtra)
-		{
-		case MEDIAPLAYER_ERROR.MEDIA_ERROR_IO:
-			strError += "MEDIA_ERROR_IO";
-			break;
-		case MEDIAPLAYER_ERROR.MEDIA_ERROR_MALFORMED:
-			strError += "MEDIA_ERROR_MALFORMED";
-			break;
-		case MEDIAPLAYER_ERROR.MEDIA_ERROR_TIMED_OUT:
-			strError += "MEDIA_ERROR_TIMED_OUT";
-			break;
-		case MEDIAPLAYER_ERROR.MEDIA_ERROR_UNSUPPORTED:
-			strError += "MEDIA_ERROR_UNSUPPORTED";
-			break;
-		default:
-			strError = "Unknown error " + iCode;
-			break;
-		}
-		
-		
-		
-		Debug.LogError(strError);
-		
-		if (OnVideoError != null)
-		{
-			OnVideoError(iCode, iCodeExtra);
-		}
-	}
-	
-	
-	void OnDestroy()
-	{
-		
-		
-		#if UNITY_ANDROID
+                    }
+                }
+
+
+
+                if (m_ScaleValue == MEDIA_SCALE.SCALE_X_TO_Y)
+                {
+                    m_objResize[i].transform.localScale
+                        = new Vector3(m_objResize[i].transform.localScale.x
+                                      , m_objResize[i].transform.localScale.x * fRatio
+                                      , m_objResize[i].transform.localScale.z);
+                }
+                else if (m_ScaleValue == MEDIA_SCALE.SCALE_X_TO_Y_2)
+                {
+                    m_objResize[i].transform.localScale
+                        = new Vector3(m_objResize[i].transform.localScale.x
+                                      , m_objResize[i].transform.localScale.x * fRatio / 2.0f
+                                      , m_objResize[i].transform.localScale.z);
+                }
+                else if (m_ScaleValue == MEDIA_SCALE.SCALE_X_TO_Z)
+                {
+                    m_objResize[i].transform.localScale
+                        = new Vector3(m_objResize[i].transform.localScale.x
+                                      , m_objResize[i].transform.localScale.y
+                                      , m_objResize[i].transform.localScale.x * fRatio);
+                }
+                else if (m_ScaleValue == MEDIA_SCALE.SCALE_Y_TO_X)
+                {
+                    m_objResize[i].transform.localScale
+                        = new Vector3(m_objResize[i].transform.localScale.y / fRatio
+                                      , m_objResize[i].transform.localScale.y
+                                      , m_objResize[i].transform.localScale.z);
+                }
+                else if (m_ScaleValue == MEDIA_SCALE.SCALE_Y_TO_Z)
+                {
+                    m_objResize[i].transform.localScale
+                        = new Vector3(m_objResize[i].transform.localScale.x
+                                      , m_objResize[i].transform.localScale.y
+                                      , m_objResize[i].transform.localScale.y / fRatio);
+                }
+                else if (m_ScaleValue == MEDIA_SCALE.SCALE_Z_TO_X)
+                {
+                    m_objResize[i].transform.localScale
+                        = new Vector3(m_objResize[i].transform.localScale.z * fRatio
+                                      , m_objResize[i].transform.localScale.y
+                                      , m_objResize[i].transform.localScale.z);
+                }
+                else if (m_ScaleValue == MEDIA_SCALE.SCALE_Z_TO_Y)
+                {
+                    m_objResize[i].transform.localScale
+                        = new Vector3(m_objResize[i].transform.localScale.x
+                                      , m_objResize[i].transform.localScale.z * fRatio
+                                      , m_objResize[i].transform.localScale.z);
+                }
+                else
+                {
+                    m_objResize[i].transform.localScale
+                        = new Vector3(m_objResize[i].transform.localScale.x, m_objResize[i].transform.localScale.y, m_objResize[i].transform.localScale.z);
+                }
+            }
+
+        }
+    }
+
+
+
+    //The error code is the following sites related documents.
+    //http://developer.android.com/reference/android/media/MediaPlayer.OnErrorListener.html 
+    void OnError(MEDIAPLAYER_ERROR iCode, MEDIAPLAYER_ERROR iCodeExtra)
+    {
+        string strError = "";
+
+        switch (iCode)
+        {
+            case MEDIAPLAYER_ERROR.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK:
+                strError = "MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK";
+                break;
+            case MEDIAPLAYER_ERROR.MEDIA_ERROR_SERVER_DIED:
+                strError = "MEDIA_ERROR_SERVER_DIED";
+                break;
+            case MEDIAPLAYER_ERROR.MEDIA_ERROR_UNKNOWN:
+                strError = "MEDIA_ERROR_UNKNOWN";
+                break;
+            default:
+                strError = "Unknown error " + iCode;
+                break;
+        }
+
+        strError += " ";
+
+        switch (iCodeExtra)
+        {
+            case MEDIAPLAYER_ERROR.MEDIA_ERROR_IO:
+                strError += "MEDIA_ERROR_IO";
+                break;
+            case MEDIAPLAYER_ERROR.MEDIA_ERROR_MALFORMED:
+                strError += "MEDIA_ERROR_MALFORMED";
+                break;
+            case MEDIAPLAYER_ERROR.MEDIA_ERROR_TIMED_OUT:
+                strError += "MEDIA_ERROR_TIMED_OUT";
+                break;
+            case MEDIAPLAYER_ERROR.MEDIA_ERROR_UNSUPPORTED:
+                strError += "MEDIA_ERROR_UNSUPPORTED";
+                break;
+            default:
+                strError = "Unknown error " + iCode;
+                break;
+        }
+
+
+
+        Debug.LogError(strError);
+
+        if (OnVideoError != null)
+        {
+            OnVideoError(iCode, iCodeExtra);
+        }
+    }
+
+
+    void OnDestroy()
+    {
+
+
+#if UNITY_ANDROID
 		
 		//Call_Reset();
 		
@@ -596,7 +605,7 @@ public class MediaPlayerCtrl : MonoBehaviour {
 				m_bPause = true;
 			}
 
-			#if UNITY_IPHONE
+#if (UNITY_IPHONE  || UNITY_TVOS) 
 			m_iPauseFrame = m_iCurrentSeekPosition;
 			Stop();
 			
@@ -609,7 +618,7 @@ public class MediaPlayerCtrl : MonoBehaviour {
 		}
 		else
 		{
-			#if UNITY_IPHONE
+#if ( UNITY_IPHONE  || UNITY_TVOS )
 			m_bStop = false;
 			Call_Play(m_iPauseFrame);
 			#else
@@ -1120,7 +1129,7 @@ public class MediaPlayerCtrl : MonoBehaviour {
 	
 	
 	
-	#elif UNITY_IPHONE
+#elif UNITY_IPHONE  || UNITY_TVOS
 	[DllImport("__Internal")]
 	private static extern int VideoPlayerPluginCreateInstance();
 	[DllImport("__Internal")]
@@ -1266,11 +1275,16 @@ public class MediaPlayerCtrl : MonoBehaviour {
 	{
 		
 		VideoPlayerPluginStopVideo(m_iID);
+		VideoPlayerPluginDestroyInstance(m_iID);
 	}
 	
 	private bool Call_Load(string strFileName, int iSeek)
 	{
-		
+		if( m_iID == -1)
+		{
+			Call_SetUnityActivity();
+		}
+
 		if(_videoTexture != null)
 		{
 			Destroy(_videoTexture);
@@ -1610,89 +1624,90 @@ public class MediaPlayerCtrl : MonoBehaviour {
 		return (MEDIAPLAYER_STATE)0;
 	}
 	
-	#endif // !UNITY_EDITOR
-	
-	
-	
-	IEnumerator DownloadStreamingVideoAndLoad(string strURL)
-	{
-		strURL = strURL.Trim();
-		
-		Debug.Log ("DownloadStreamingVideo : " + strURL);
-		
-		
-		WWW www = new WWW(strURL);
-		
-		yield return www;
-		
-		if(string.IsNullOrEmpty(www.error))
-		{
-			
-			if( System.IO.Directory.Exists( Application.persistentDataPath + "/Data") == false)
-				System.IO.Directory.CreateDirectory( Application.persistentDataPath + "/Data");
-			
-			string write_path = Application.persistentDataPath + "/Data" + strURL.Substring(strURL.LastIndexOf("/"));
-			
-			/*	if(System.IO.File.Exists(write_path) == true)
+#endif // !UNITY_EDITOR
+
+
+
+    public IEnumerator DownloadStreamingVideoAndLoad(string strURL)
+    {
+        strURL = strURL.Trim();
+
+        Debug.Log("DownloadStreamingVideo : " + strURL);
+
+
+        WWW www = new WWW(strURL);
+
+        yield return www;
+
+        if (string.IsNullOrEmpty(www.error))
+        {
+
+            if (System.IO.Directory.Exists(Application.persistentDataPath + "/Data") == false)
+                System.IO.Directory.CreateDirectory(Application.persistentDataPath + "/Data");
+
+            string write_path = Application.persistentDataPath + "/Data" + strURL.Substring(strURL.LastIndexOf("/"));
+
+            /*	if(System.IO.File.Exists(write_path) == true)
 			{
 				Debug.Log("Delete : " + write_path);
 				System.IO.File.Delete(write_path);
 			}
 		*/
-			System.IO.File.WriteAllBytes(write_path, www.bytes);
-			
-			Call_Load("file://"+write_path,0);
-		}
-		else
-		{
-			Debug.Log(www.error);
-			
-		}
-		
-		www.Dispose();
-		www = null;
-		Resources.UnloadUnusedAssets();
-	}
-	
-	IEnumerator CopyStreamingAssetVideoAndLoad(string strURL)
-	{
-		strURL = strURL.Trim();
-		
-		string write_path = Application.persistentDataPath + "/" + strURL;
-		
-		if(System.IO.File.Exists(write_path) == false)
-		{
-			Debug.Log ("CopyStreamingAssetVideoAndLoad : " + strURL);
-			
-			WWW www = new WWW( Application.streamingAssetsPath +"/"+ strURL);
-			
-			yield return www;
-			
-			if( string.IsNullOrEmpty(www.error))
-			{
-				
-				
-				
-				Debug.Log (write_path);
-				System.IO.File.WriteAllBytes(write_path, www.bytes );
-				
-				Call_Load("file://"+write_path,0);
-				
-				
-			}
-			else
-			{
-				Debug.Log(www.error);
-				
-			}
-			
-			www.Dispose();
-			www = null;
-		}
-		else
-		{
-			Call_Load("file://"+write_path,0);
-		}
-		
-	}
+            System.IO.File.WriteAllBytes(write_path, www.bytes);
+
+            Load("file://" + write_path);
+        }
+        else
+        {
+            Debug.Log(www.error);
+
+        }
+
+        www.Dispose();
+        www = null;
+        Resources.UnloadUnusedAssets();
+    }
+
+    IEnumerator CopyStreamingAssetVideoAndLoad(string strURL)
+    {
+        strURL = strURL.Trim();
+
+        string write_path = Application.persistentDataPath + "/" + strURL;
+
+        if (System.IO.File.Exists(write_path) == false)
+        {
+            Debug.Log("CopyStreamingAssetVideoAndLoad : " + strURL);
+
+            WWW www = new WWW(Application.streamingAssetsPath + "/" + strURL);
+
+            yield return www;
+
+            if (string.IsNullOrEmpty(www.error))
+            {
+
+
+
+                Debug.Log(write_path);
+                System.IO.File.WriteAllBytes(write_path, www.bytes);
+
+                Load("file://" + write_path);
+
+
+            }
+            else
+            {
+                Debug.Log(www.error);
+
+            }
+
+            www.Dispose();
+            www = null;
+        }
+        else
+        {
+            Load("file://" + write_path);
+        }
+
+    }
+
 }

@@ -52,20 +52,20 @@ public class ThreePSListener : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		LeanTween.move (this.gameObject, new Vector3 (updatedX, this.gameObject.transform.position.y, updatedZ), Time.smoothDeltaTime);
+		playerToMove.transform.position = new Vector3 (updatedX, this.gameObject.transform.position.y, updatedZ);
 
 		//if (enemiesToMove [0] != null) {
-		LeanTween.move (enemiesToMove [0], new Vector3 (bot0UpdatedX, enemiesToMove [0].transform.position.y, bot0UpdatedZ), Time.smoothDeltaTime);
+		enemiesToMove [0].transform.position = new Vector3 (bot0UpdatedX, enemiesToMove [0].transform.position.y, bot0UpdatedZ);
 		enemiesToMove [0].transform.rotation = new Quaternion (bot0UpdatedQuaternionX, bot0UpdatedQuaternionY, bot0UpdatedQuaternionZ, bot0UpdatedQuaternionW);
 		//}
 
 		//if (enemiesToMove [1] != null) {
-		LeanTween.move (enemiesToMove [1], new Vector3 (bot1UpdatedX, enemiesToMove [1].transform.position.y, bot1UpdatedZ), Time.smoothDeltaTime);
+		enemiesToMove [1].transform.position = new Vector3 (bot1UpdatedX, enemiesToMove [1].transform.position.y, bot1UpdatedZ);
 		enemiesToMove [1].transform.rotation = new Quaternion (bot1UpdatedQuaternionX, bot1UpdatedQuaternionY, bot1UpdatedQuaternionZ, bot1UpdatedQuaternionW);
 		//}
 
 		//	if (enemiesToMove [2] != null) {
-		LeanTween.move (enemiesToMove [2], new Vector3 (bot2UpdatedX, enemiesToMove [2].transform.position.y, bot2UpdatedZ), Time.smoothDeltaTime);
+		enemiesToMove [2].transform.position = new Vector3 (bot2UpdatedX, enemiesToMove [2].transform.position.y, bot2UpdatedZ);
 		enemiesToMove [2].transform.rotation = new Quaternion (bot2UpdatedQuaternionX, bot2UpdatedQuaternionY, bot2UpdatedQuaternionZ, bot2UpdatedQuaternionW);
 		//}
 		//LeanTween.move(enemiesToMove[0], new Vector3 (

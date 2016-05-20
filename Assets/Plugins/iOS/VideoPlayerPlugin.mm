@@ -17,6 +17,8 @@ extern "C" __attribute__((visibility ("default"))) NSString *const kUnityViewDid
     bool bLoop;
     
     bool m_bFinish;
+    bool m_bUnload;
+    bool m_bLoading;
 }
 - (void)playVideo:(NSURL *)videoURL;
 
@@ -46,6 +48,15 @@ extern "C" __attribute__((visibility ("default"))) NSString *const kUnityViewDid
 }
 
 - (void)onPlayerReady {
+    
+
+    m_bLoading = false;
+    
+    if(m_bUnload == true)
+    {
+        m_bUnload = false;
+        [self unload];
+    }
     
     if (!player.isPlaying) {
         if (view) [self resizeView];
@@ -84,6 +95,13 @@ extern "C" __attribute__((visibility ("default"))) NSString *const kUnityViewDid
 }
 
 - (void)unload {
+    
+  
+    if( m_bLoading == true)
+    {
+        m_bUnload = true;
+        return;
+    }
     if (view) {
         [view removeFromSuperview];
         view = nil;
@@ -197,8 +215,11 @@ extern "C" void VideoPlayerPluginLoadVideo(int iID,const char *videoURL) {
     }
     
     _GetPlayer(iID)->m_bFinish = false;
+    _GetPlayer(iID)->m_bLoading = true;
+    
 
     [_GetPlayer(iID) loadVideo:_GetUrl(videoURL)];
+    
 }
 
 extern "C" void VideoPlayerPluginPlayVideo(int iID) {

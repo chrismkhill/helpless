@@ -264,7 +264,7 @@ static void* _ObservePlayerItemContext = (void*)0x2;
         {
 
             
-           if(UnitySelectedRenderingAPI() == apiMetal || UnitySelectedRenderingAPI() == apiOpenGLES3)
+           if(UnitySelectedRenderingAPI() == apiMetal || UnitySelectedRenderingAPI() == apiOpenGLES3 || UnitySelectedRenderingAPI() == apiOpenGLES2)
             {
                 if(_videoSampling.cvTextureCacheTexture)
                 {
@@ -276,6 +276,15 @@ static void* _ObservePlayerItemContext = (void*)0x2;
                     curTex = GetTextureFromCVTextureCache(_videoSampling.cvTextureCacheTexture);
                 
 
+                if(UnitySelectedRenderingAPI() == apiOpenGLES2 || UnitySelectedRenderingAPI() == apiOpenGLES3)
+                {
+                    GLES_CHK(glBindTexture(GL_TEXTURE_2D, (GLuint)curTex));
+                    GLES_CHK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+                    GLES_CHK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+                    GLES_CHK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+                    GLES_CHK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+                    GLES_CHK(glBindTexture(GL_TEXTURE_2D, 0));
+                }
                 
                 CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
                 
